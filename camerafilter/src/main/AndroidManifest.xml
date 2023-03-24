@@ -9,18 +9,24 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
+    <permission-group android:name="android.permission-group.HARDWARE_CONTROLS"/>
     <permission
         android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal"/>
     <application>
+<!--        android:theme="@style/AppTheme.StatusTranslate"-->
         <activity android:name=".FilterImageActivity"
-            android:theme="@style/AppTheme.StatusTranslate"
             android:screenOrientation="portrait"
             />
+<!--        android:theme="@style/AppTheme.StatusTranslate"-->
         <activity android:name=".FilterCameraActivity"
-            android:theme="@style/AppTheme.StatusTranslate"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".CameraFilterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ImageSelectedActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

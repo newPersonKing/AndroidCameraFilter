@@ -1,21 +1,15 @@
 package com.dingmouren.camerafilter.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.provider.SyncStateContract;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dingmouren.camerafilter.ConstantFilters;
 import com.dingmouren.camerafilter.R;
-
-import org.wysaid.view.ImageGLSurfaceView;
 
 /**
  * Created by 钉某人
@@ -27,8 +21,8 @@ public class DialogFilterAdapter extends RecyclerView.Adapter<DialogFilterAdapte
 
     private OnItemClickListener mOnItemClickListener;
 
-    public DialogFilterAdapter(Context context){
-    }
+    public static int currentIndex = 0;
+    public DialogFilterAdapter(Context context){}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,18 +33,18 @@ public class DialogFilterAdapter extends RecyclerView.Adapter<DialogFilterAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.img.setImageResource(ConstantFilters.IMG_FILTERS[position]);
+        holder.img.setImageResource(ConstantFilters.IMG_FILTERS[position+ getStartIndex()]);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mOnItemClickListener) mOnItemClickListener.onItemClickListener(position);
+                if (null != mOnItemClickListener) mOnItemClickListener.onItemClickListener(position + getStartIndex());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return ConstantFilters.IMG_FILTERS.length;
+        return getLength();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,5 +61,17 @@ public class DialogFilterAdapter extends RecyclerView.Adapter<DialogFilterAdapte
 
     public interface OnItemClickListener{
         void onItemClickListener(int position);
+    }
+
+    private int getLength(){
+        if(currentIndex == 0 || currentIndex == 1)return 30;
+        if(currentIndex == -1) return ConstantFilters.IMG_FILTERS.length;
+        return ConstantFilters.IMG_FILTERS.length - 60;
+    }
+
+    private int getStartIndex(){
+        if(currentIndex == 0 || currentIndex == -1)return 0;
+        if(currentIndex == 1) return 30;
+        return 60;
     }
 }

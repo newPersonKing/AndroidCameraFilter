@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidCameraFilter-master.iml" filepath="$PROJECT_DIR$/AndroidCameraFilter-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/camerafilter/camerafilter.iml" filepath="$PROJECT_DIR$/camerafilter/camerafilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AndroidCameraFilter.iml" filepath="$PROJECT_DIR$/.idea/AndroidCameraFilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidCameraFilter.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.iml" filepath="$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/camerafilter/AndroidCameraFilter.camerafilter.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.unitTest.iml" />
     </modules>
   </component>
 </project>

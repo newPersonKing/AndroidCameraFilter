@@ -1,64 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_switch"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/camera_filter_front_back_icon"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="15dp"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/camera_filter_cancel_icon"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="32dp"
+            />
+    </RelativeLayout>
     <org.wysaid.view.CameraRecordGLSurfaceView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginVertical="20dp"/>
     <!--底部的按钮-->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rela_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        >
-        <ImageView
-            android:id="@+id/img_flash"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/img_flash"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/video_control_view"
-            />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/album"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/filter_album"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Album"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/filter_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/filter_beauty_icon"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beauty"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
         <com.dingmouren.camerafilter.view.VideoControlView
             android:id="@+id/video_control_view"
             android:layout_width="250px"
             android:layout_centerInParent="true"
             android:layout_height="250px"
             app:excircleRadius="100px"
-            app:innerCircleRadius="70px"
+            app:innerCircleRadius="80px"
             app:minTime="2"
             app:maxTime="20"
+            app:annulusColor="@android:color/black"
             />
-        <ImageView
-            android:id="@+id/img_filter"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/img_filter"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/video_control_view"
-            />
-    </RelativeLayout>
-    <ImageView
-        android:id="@+id/img_switch"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/img_switch_camera"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="50dp"
-        />
-    <ImageView
-        android:id="@+id/img_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/img_back"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="16dp"
-        />
-</RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/filter_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/filter_vip_icon"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIP"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/filter_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/filter_filter_icon"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="filter"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

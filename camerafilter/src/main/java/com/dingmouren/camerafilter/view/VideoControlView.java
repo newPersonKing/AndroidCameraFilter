@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Message;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -253,52 +253,58 @@ public class VideoControlView extends View {
         return false;
     }
 
+    private boolean isAgreePermission = false;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                isRecording = true;
-                mStartTime = System.currentTimeMillis();
-                handler.sendEmptyMessageDelayed(MSG_START_LONG_RECORD, LONG_CLICK_MIN_TIME);
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                isRecording = false;
-                mEndTime = System.currentTimeMillis();
-                if (mEndTime - mStartTime < LONG_CLICK_MIN_TIME) {
-                    //Long press the action time too short.
-                    if (handler.hasMessages(MSG_START_LONG_RECORD)) {
-                        handler.removeMessages(MSG_START_LONG_RECORD);
-                    }
-                    if (onRecordListener != null) {
-                        onRecordListener.onShortClick();
-                    }
-
-                } else {
-
-                    if (mProgressAni != null && mProgressAni.getCurrentPlayTime() / 1000 < mMinTime) {
-                        //The recording time is less than the minimum recording time.
-                        if (onRecordListener != null) {
-                            onRecordListener.OnFinish(0);
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            isAgreePermission = onRecordListener.check();
+        }
+        if(isAgreePermission){
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    isRecording = true;
+                    mStartTime = System.currentTimeMillis();
+                    handler.sendEmptyMessageDelayed(MSG_START_LONG_RECORD, LONG_CLICK_MIN_TIME);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isRecording = false;
+                    mEndTime = System.currentTimeMillis();
+                    if (mEndTime - mStartTime < LONG_CLICK_MIN_TIME) {
+                        //Long press the action time too short.
+                        if (handler.hasMessages(MSG_START_LONG_RECORD)) {
+                            handler.removeMessages(MSG_START_LONG_RECORD);
                         }
+                        if (onRecordListener != null) {
+                            onRecordListener.onShortClick();
+                        }
+
                     } else {
-                        //The end of the normal
-                        if (onRecordListener != null) {
-                            onRecordListener.OnFinish(1);
+
+                        if (mProgressAni != null && mProgressAni.getCurrentPlayTime() / 1000 < mMinTime) {
+                            //The recording time is less than the minimum recording time.
+                            if (onRecordListener != null) {
+                                onRecordListener.OnFinish(0);
+                            }
+                        } else {
+                            //The end of the normal
+                            if (onRecordListener != null) {
+                                onRecordListener.OnFinish(1);
+                            }
                         }
                     }
-                }
-                mExCircleRadius = mInitExCircleRadius;
-                mInnerCircleRadius = mInitInnerRadius;
-                mProgressAni.cancel();
-                startAnimation(
-                        mInitExCircleRadius * excicleMagnification,
-                        mInitExCircleRadius,
-                        mInitInnerRadius * innerCircleShrinks,
-                        mInitInnerRadius);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
+                    mExCircleRadius = mInitExCircleRadius;
+                    mInnerCircleRadius = mInitInnerRadius;
+                    mProgressAni.cancel();
+                    startAnimation(
+                            mInitExCircleRadius * excicleMagnification,
+                            mInitExCircleRadius,
+                            mInitInnerRadius * innerCircleShrinks,
+                            mInitInnerRadius);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    break;
+            }
         }
         return true;
     }
@@ -487,6 +493,8 @@ public class VideoControlView extends View {
          * @param resultCode 0 录制时间太短 1 正常结束
          */
         public abstract void OnFinish(int resultCode);
+
+        public abstract boolean check();
     }
 
     /**

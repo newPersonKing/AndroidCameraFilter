@@ -1,26 +1,18 @@
 package com.dingmouren.androidcamerafilter;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.dingmouren.camerafilter.FilterCameraActivity;
 import com.dingmouren.camerafilter.FilterImageActivity;
 import com.dingmouren.camerafilter.util.ConvertBitmapUtils;
 
 
-import org.wysaid.common.Common;
-import org.wysaid.nativePort.CGENativeLibrary;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static com.dingmouren.camerafilter.FilterImageActivity.BITMAP_FILTER;
 import static com.dingmouren.camerafilter.FilterImageActivity.REQUEST_CODE_FILTER_IMG;
@@ -61,23 +53,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cameraFilter(View view){
-        startActivity(new Intent(MainActivity.this, FilterCameraActivity.class));
+//        startActivity(new Intent(MainActivity.this, FilterCameraActivity.class));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK){
-            switch (requestCode){
-                case REQUEST_CODE_FILTER_IMG:
-                    if (data != null){
-                        byte[] bytesArray = data.getByteArrayExtra(BITMAP_FILTER);
-                        if (null != bytesArray && bytesArray.length > 0) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytesArray, 0, bytesArray.length);
-                            mImg_2.setImageBitmap(bitmap);
-                        }
-                    }
-                    break;
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode == RESULT_OK){
+//            switch (requestCode){
+//                case REQUEST_CODE_FILTER_IMG:
+//                    if (data != null){
+//                        byte[] bytesArray = data.getByteArrayExtra(BITMAP_FILTER);
+//                        if (null != bytesArray && bytesArray.length > 0) {
+//                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytesArray, 0, bytesArray.length);
+//                            mImg_2.setImageBitmap(bitmap);
+//                        }
+//                    }
+//                    break;
+//            }
+//        }
+//    }
 }
