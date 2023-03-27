@@ -1,2 +1,3 @@
 include ':app', ':camerafilter'
 include ':cameramain'
+include ':filterscene'

@@ -15,6 +15,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cameramain/AndroidCameraFilter.cameramain.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chattigger/AndroidCameraFilter.filterscene.iml" filepath="$PROJECT_DIR$/.idea/modules/chattigger/AndroidCameraFilter.filterscene.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.main.iml" filepath="$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/filterscene/AndroidCameraFilter.filterscene.unitTest.iml" />
     </modules>
   </component>
 </project>

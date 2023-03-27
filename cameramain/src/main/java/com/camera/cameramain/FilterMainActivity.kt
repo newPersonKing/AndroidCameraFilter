@@ -1,11 +1,16 @@
 package com.camera.cameramain
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -19,16 +24,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import com.camera.cameramain.activity.FilterSettingActivity
 import com.camera.cameramain.ext.startExt
-import com.dingmouren.camerafilter.CameraFilterActivity
-import com.dingmouren.camerafilter.ImageSelectedActivity
-import com.dingmouren.camerafilter.engine.GlideEngine
-import com.dingmouren.camerafilter.mgr.SelectedImageManager
+import com.camera.cameramain.util.FilterLogUtil
+import com.filter.camerafilter.CameraFilterActivity
+import com.filter.camerafilter.ImageSelectedActivity
+import com.filter.camerafilter.engine.GlideEngine
+import com.filter.camerafilter.mgr.SelectedImageManager
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.config.SelectModeConfig
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.luck.picture.lib.language.LanguageConfig
 import org.wysaid.myUtils.ImageUtil
 
 class FilterMainActivity : AppCompatActivity() {
@@ -38,22 +47,26 @@ class FilterMainActivity : AppCompatActivity() {
         ImageUtil.getPath(this)
         setContentView(ComposeView(this).apply {
             setContent {
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(color = Color.White)
                 ) {
+                    val state = rememberScrollState()
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
+                            .weight(1f)
                             .background(color = Color.White)
+                            .verticalScroll(state)
                     ) {
                         createTopTitle()
                         createCenterImg()
                         createTipImg()
                     }
 
-                    createBottomTab(modifier = Modifier.align(Alignment.BottomCenter)
+                    createBottomTab(modifier = Modifier
+                        .padding(horizontal = 30.dp)
                         .padding(bottom = 40.dp))
                 }
             }
@@ -66,13 +79,21 @@ class FilterMainActivity : AppCompatActivity() {
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Row(modifier = Modifier
                 .size(width = 140.dp, height = 70.dp)
                 .background(color = Color(0xFF3893FF), shape = RoundedCornerShape(8.dp))
                 .clickable {
-                    startExt<CameraFilterActivity>()
+                    ActivityCompat.requestPermissions(
+                        this@FilterMainActivity,
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA
+                        ),
+                        100
+                    )
                 },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -81,7 +102,7 @@ class FilterMainActivity : AppCompatActivity() {
                     contentDescription = null,
                     modifier = Modifier.size(40.dp)
                 )
-                Text(text = "camera",
+                Text(text = "Camera",
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.W600,
@@ -95,20 +116,25 @@ class FilterMainActivity : AppCompatActivity() {
                 .size(width = 140.dp, height = 70.dp)
                 .background(color = Color.Black, shape = RoundedCornerShape(8.dp))
                 .clickable {
-                    PictureSelector.create(this@FilterMainActivity)
+                    PictureSelector
+                        .create(this@FilterMainActivity)
                         .openGallery(SelectMimeType.ofImage())
+                        .setLanguage(LanguageConfig.ENGLISH)
                         .setImageEngine(GlideEngine.createGlideEngine())
                         .setSelectionMode(SelectModeConfig.SINGLE)
                         .forResult(object : OnResultCallbackListener<LocalMedia?> {
                             override fun onResult(result: ArrayList<LocalMedia?>?) {
-                                if((result?.size ?: 0) == 1){
+                                if ((result?.size ?: 0) == 1) {
                                     SelectedImageManager.selectedLocalMedia = result!![0]
                                     startActivity(
-                                        Intent(this@FilterMainActivity,
-                                            ImageSelectedActivity::class.java)
+                                        Intent(
+                                            this@FilterMainActivity,
+                                            ImageSelectedActivity::class.java
+                                        )
                                     )
                                 }
                             }
+
                             override fun onCancel() {
 
                             }
@@ -152,7 +178,11 @@ class FilterMainActivity : AppCompatActivity() {
 
             Image(painter = painterResource(id = R.mipmap.filter_main_setting_enter_icon),
                 contentDescription = null,
-                modifier = Modifier.size(27.dp)
+                modifier = Modifier
+                    .size(27.dp)
+                    .clickable {
+                        startExt<FilterSettingActivity>()
+                    }
             )
         }
     }
@@ -178,5 +208,37 @@ class FilterMainActivity : AppCompatActivity() {
                 .height(46.dp)
 
         )
+    }
+
+    private var mhandler = Handler(Looper.getMainLooper())
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        FilterLogUtil.logE("agree_size_${grantResults.size}")
+        if(requestCode == 100){
+            val  isNotAllAgree = grantResults.any {
+                it == PackageManager.PERMISSION_DENIED
+            }
+            if(isNotAllAgree){
+                Toast.makeText(this, "need agree WRITE_EXTERNAL_STORAGE " +
+                        "\n READ_EXTERNAL_STORAGE CAMERA permission", Toast.LENGTH_SHORT).show()
+                mhandler.postDelayed({
+                    try {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri =
+                            Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                },1500)
+            }else {
+                startExt<CameraFilterActivity>()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

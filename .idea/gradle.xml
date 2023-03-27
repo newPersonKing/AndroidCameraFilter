@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/camerafilter" />
             <option value="$PROJECT_DIR$/cameramain" />
+            <option value="$PROJECT_DIR$/filterscene" />
           </set>
         </option>
       </GradleProjectSettings>

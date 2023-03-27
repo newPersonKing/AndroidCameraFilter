@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -87,7 +88,7 @@
 
         </LinearLayout>
 
-        <com.dingmouren.camerafilter.view.VideoControlView
+        <com.filter.camerafilter.view.VideoControlView
             android:id="@+id/video_control_view"
             android:layout_width="250px"
             android:layout_centerInParent="true"

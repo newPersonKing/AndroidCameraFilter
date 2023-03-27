@@ -16,13 +16,13 @@
         android:protectionLevel="normal"/>
     <application>
 <!--        android:theme="@style/AppTheme.StatusTranslate"-->
-        <activity android:name=".FilterImageActivity"
+        <activity android:name="com.filter.camerafilter.ImageFilterActivity"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".CameraFilterActivity"
+        <activity android:name="com.filter.camerafilter.CameraFilterActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ImageSelectedActivity"
+        <activity android:name="com.filter.camerafilter.ImageSelectedActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>
