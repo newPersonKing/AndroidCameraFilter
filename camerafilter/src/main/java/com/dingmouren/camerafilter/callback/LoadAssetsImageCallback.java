@@ -12,11 +12,6 @@ import org.wysaid.nativePort.CGENativeLibrary;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by 钉某人
- * github: https://github.com/DingMouRen
- * email: naildingmouren@gmail.com
- */
 
 public class LoadAssetsImageCallback implements CGENativeLibrary.LoadImageCallback {
 

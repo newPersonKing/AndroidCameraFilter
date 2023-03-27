@@ -1,11 +1,8 @@
 package com.dingmouren.camerafilter;
 
-import static com.luck.picture.lib.config.PictureMimeType.getMimeType;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,10 +29,7 @@ import com.dingmouren.camerafilter.callback.LoadAssetsImageCallback;
 import com.dingmouren.camerafilter.dialog.DialogFilter;
 import com.dingmouren.camerafilter.dialog.DialogFilterAdapter;
 import com.dingmouren.camerafilter.mgr.SelectedImageManager;
-import com.dingmouren.camerafilter.util.ConvertBitmapUtils;
 import com.luck.picture.lib.entity.LocalMedia;
-
-import org.wysaid.myUtils.ImageUtil;
 import org.wysaid.nativePort.CGENativeLibrary;
 import org.wysaid.view.ImageGLSurfaceView;
 

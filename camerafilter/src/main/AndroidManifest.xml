@@ -19,10 +19,6 @@
         <activity android:name=".FilterImageActivity"
             android:screenOrientation="portrait"
             />
-<!--        android:theme="@style/AppTheme.StatusTranslate"-->
-        <activity android:name=".FilterCameraActivity"
-            android:screenOrientation="portrait"
-            />
         <activity android:name=".CameraFilterActivity"
             android:screenOrientation="portrait"/>
 
