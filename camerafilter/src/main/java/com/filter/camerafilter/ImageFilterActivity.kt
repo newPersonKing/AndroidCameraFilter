@@ -2,9 +2,9 @@ package com.filter.camerafilter
 
 import android.content.ContentValues
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.provider.MediaStore
@@ -19,6 +19,7 @@ import com.filter.camerafilter.callback.LoadAssetsImageCallback
 import com.filter.camerafilter.dialog.DialogFilterList
 import com.filter.camerafilter.dialog.DialogFilterListAdapter
 import com.filter.camerafilter.mgr.SelectedImageManager.selectedLocalMedia
+import com.filter.camerafilter.util.QFileUtil
 import org.wysaid.nativePort.CGENativeLibrary
 import org.wysaid.view.ImageGLSurfaceView
 import java.io.*
@@ -31,7 +32,9 @@ class ImageFilterActivity : AppCompatActivity() {
         CGENativeLibrary.setLoadImageCallback(LoadAssetsImageCallback(this), null)
 
         val media = selectedLocalMedia
-        mBitmap = BitmapFactory.decodeFile(media!!.realPath)
+        val  uri = QFileUtil.getImageContentUri(this,media!!.realPath)
+        mBitmap  = QFileUtil.getBitmapFromUri(this,uri)
+//        mBitmap = BitmapFactory.decodeFile(media!!.realPath)
 
         initView()
 
@@ -133,9 +136,21 @@ class ImageFilterActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } else {
-            MediaScannerConnection.scanFile(
-                applicationContext, arrayOf(file.absolutePath), arrayOf("image/jpeg")
-            ) { _: String?, _: Uri? -> }
+            val values = ContentValues()
+            values.put(MediaStore.Images.Media.DATA, file.absolutePath)
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            values.put(
+                MediaStore.Images.ImageColumns.DATE_TAKEN,
+                System.currentTimeMillis().toString() + ""
+            )
+            contentResolver
+                .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            sendBroadcast(
+                Intent(
+                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                    Uri.parse("file://" + file.absolutePath)
+                )
+            )
         }
     }
 

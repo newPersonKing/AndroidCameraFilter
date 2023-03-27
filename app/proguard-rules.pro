@@ -26,3 +26,10 @@
 -dontwarn com.yalantis.ucrop**
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+-keep class **.R$*
+
+-keep class org.wysaid.nativePort.** { *; }

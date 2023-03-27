@@ -1,5 +1,7 @@
 package com.camera.cameramain.composebase
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
@@ -10,7 +12,8 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun buildBaseTheme(content:@Composable ()->Unit){
     CompositionLocalProvider(values = arrayOf(localPrimaryColor provides Color(0xFF3893FF)
-        , localPrimaryBgColor provides Color.White)) {
+        , localPrimaryBgColor provides Color.White,LocalRippleTheme provides NoRippleTheme,
+        LocalIndication provides NoIndication)) {
         content()
     }
 }

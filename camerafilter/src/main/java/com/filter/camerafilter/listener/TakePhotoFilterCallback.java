@@ -84,13 +84,12 @@ public class TakePhotoFilterCallback implements CameraRecordGLSurfaceView.TakePi
                 e.printStackTrace();
             }
         } else {
-            MediaScannerConnection.scanFile(
-                    context.getApplicationContext(),
-                    new String[]{file.getAbsolutePath()},
-                    new String[]{"image/jpeg"},
-                    (path, uri) -> {
-                        // Scan Completed
-                    });
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis() + "");
+            context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
         }
     }
 

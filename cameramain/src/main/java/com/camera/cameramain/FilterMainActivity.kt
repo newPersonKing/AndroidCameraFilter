@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import com.camera.cameramain.activity.FilterSettingActivity
+import com.camera.cameramain.composebase.buildBaseTheme
 import com.camera.cameramain.ext.startExt
 import com.camera.cameramain.util.FilterLogUtil
 import com.filter.camerafilter.CameraFilterActivity
@@ -47,28 +48,30 @@ class FilterMainActivity : AppCompatActivity() {
         ImageUtil.getPath(this)
         setContentView(ComposeView(this).apply {
             setContent {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color.White)
-                ) {
-                    val state = rememberScrollState()
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f)
-                            .background(color = Color.White)
-                            .verticalScroll(state)
-                    ) {
-                        createTopTitle()
-                        createCenterImg()
-                        createTipImg()
-                    }
+              buildBaseTheme {
+                  Column(
+                      modifier = Modifier
+                          .fillMaxSize()
+                          .background(color = Color.White)
+                  ) {
+                      val state = rememberScrollState()
+                      Column(
+                          modifier = Modifier
+                              .fillMaxSize()
+                              .weight(1f)
+                              .background(color = Color.White)
+                              .verticalScroll(state)
+                      ) {
+                          createTopTitle()
+                          createCenterImg()
+                          createTipImg()
+                      }
 
-                    createBottomTab(modifier = Modifier
-                        .padding(horizontal = 30.dp)
-                        .padding(bottom = 40.dp))
-                }
+                      createBottomTab(modifier = Modifier
+                          .padding(horizontal = 30.dp)
+                          .padding(bottom = 40.dp))
+                  }
+              }
             }
         })
     }
@@ -240,5 +243,9 @@ class FilterMainActivity : AppCompatActivity() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 }
